@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <link rel="stylesheet" href="static/style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>صفحة المستخدم</title>
+</head>
+
+
+<body>
+    <h2>مرحبًا بك في صفحة المستخدم</h2>
+    
+    <h3>الفيديوهات:</h3>
+    <div class="video-grid">
+        {% for video in videos %}
+            <div class="video-item">
+                <iframe src="{{ video[0] }}" frameborder="0" allowfullscreen></iframe>
+            </div>
+        {% endfor %}
+    </div>
+    
+
+    <h3>ملفات PDF:</h3>
+    <ul>
+        {% for pdf in pdf_files %}
+            <li><a href="{{ pdf[1] }}" target="_blank">{{ pdf[0] }}</a></li>
+        {% endfor %}
+    </ul>
+
+    <h3>روابط Google Meet:</h3>
+    <ul>
+        {% for link in meet_links %}
+            <li><a href="{{ link[0] }}" target="_blank">{{ link[0] }}</a></li>
+        {% endfor %}
+    </ul>
+
+    <a href="{{ url_for('logout') }}">تسجيل الخروج</a>
+    <script src="script.js"></script>
+</body>
+</html>

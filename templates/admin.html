@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <link rel="stylesheet" href="static/style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>صفحة الإدارة</title>
+</head>
+<body>
+    <h2>إدارة الأكواد والفيديوهات</h2>
+
+    <h3>إنشاء كود جديد</h3>
+    <form method="POST">
+        <label for="user_name">اسم المستخدم:</label>
+        <input type="text" id="user_name" name="user_name" required><br><br>
+        <button type="submit" name="generate_code">إنشاء كود</button>
+    </form>
+
+    {% if generated_code %}
+        <p>الكود الذي تم إنشاؤه: {{ generated_code }}</p>
+    {% endif %}
+
+    <h3>الأكواد الحالية</h3>
+    <ul>
+        {% for code in codes %}
+            <li>
+                {{ code[1] }} - {{ code[2] }} - {{ code[3] }} - 
+                {% if code[4] %} مفعل {% else %} غير مفعل {% endif %}
+                <form method="POST" style="display:inline;">
+                    <button type="submit" name="toggle_code" value="{{ code[0] }}">
+                        {% if code[4] %} تعطيل {% else %} تفعيل {% endif %}
+                    </button>
+                </form>
+            </li>
+        {% endfor %}
+    </ul>
+
+    <h3>رفع فيديو جديد</h3>
+    <form method="POST">
+        <label for="video_url">رابط الفيديو:</label>
+        <input type="text" id="video_url" name="video_url" required><br><br>
+        <button type="submit">رفع الفيديو</button>
+    </form>
+
+    <h3>رفع ملف PDF</h3>
+    <form method="POST" enctype="multipart/form-data">
+        <input type="file" name="pdf_file" required><br><br>
+        <button type="submit">رفع ملف PDF</button>
+    </form>
+
+    <h3>إضافة رابط Google Meet</h3>
+    <form method="POST">
+        <label for="meet_link">رابط Google Meet:</label>
+        <input type="text" id="meet_link" name="meet_link" required><br><br>
+        <button type="submit">إضافة الرابط</button>
+    </form>
+
+    <a href="{{ url_for('logout') }}">تسجيل الخروج</a>
+</body>
+</html>
